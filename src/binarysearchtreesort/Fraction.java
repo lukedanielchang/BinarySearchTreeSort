@@ -7,7 +7,8 @@ package binarysearchtreesort;
 
 /**
  *
- * @author ldcha
+ * @author Luke Chang
+ * CMSC 350
  */
 public class Fraction implements Comparable {
     //initalize var to hold fractions
