@@ -6,6 +6,7 @@ package binarysearchtreesort;
 /**
  *
  * @author ldcha
+ * CMSC 350
  */
 public class Tree<BST> {
     //create key
