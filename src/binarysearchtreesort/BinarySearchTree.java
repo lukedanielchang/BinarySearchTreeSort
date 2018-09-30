@@ -8,6 +8,7 @@ package binarysearchtreesort;
 /**
  *
  * @author ldcha
+ * CMSC 350
  */
 public class BinarySearchTree<BST> {
     //initalize output string and tree
