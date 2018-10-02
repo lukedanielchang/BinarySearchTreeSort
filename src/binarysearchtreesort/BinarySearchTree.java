@@ -7,8 +7,7 @@ package binarysearchtreesort;
 
 /**
  *
- * @author ldcha
- * CMSC 350
+ * @author ldcha CMSC 350
  */
 public class BinarySearchTree<BST> {
     //initalize output string and tree
@@ -65,6 +64,8 @@ public class BinarySearchTree<BST> {
                 rootNode.rightChild = insertNodeToTree(rootNode.rightChild, nextNode);
             } else if (compareNodes > 0) {
                 rootNode.rightChild = insertNodeToTree(rootNode.rightChild, nextNode);
+
+                //rec call func?
             }
             return rootNode;
         }
@@ -76,33 +77,32 @@ public class BinarySearchTree<BST> {
     }
 
     //ascending tree order traversal
-    public String ascTreeTraversal(Tree<BST> node) {
+    public String inOrderTraversal(Tree<BST> node) {
         //check for remaining nodes
         if (node != null) {
             //traverse tree left to right
-            ascTreeTraversal(node.leftChild);
-
+            inOrderTraversal(node.leftChild);
             //store node to output string
             output += String.valueOf(node.key + " ");
 
             //traverses over right nodes
-            ascTreeTraversal(node.rightChild);
+            inOrderTraversal(node.rightChild);
         }
         return output;
     }
     //descending tree order traversal
 
-    public String descTreeTraversal(Tree<BST> node) {
+    public String postOrderTraversal(Tree<BST> node) {
         //check for remainging nodes
         if (node != null) {
             //traverse tree right to left
-            descTreeTraversal(node.rightChild);
+            postOrderTraversal(node.rightChild);
 
             //store node to output string
             output += String.valueOf(node.key + " ");
 
             //traverse over left nodes
-            descTreeTraversal(node.leftChild);
+            postOrderTraversal(node.leftChild);
         }
         return output;
     }
