@@ -6,15 +6,20 @@
 package binarysearchtreesort;
 
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author ldcha
  */
 public class NumberFormatExpression {
     //throw error message for invalid inputs
-public static void numberError(){
+     
+    public static void numberError() {
+        
         JOptionPane.showMessageDialog(null, "Invalid Input Detected.  Please"
-                + "double check input and try again", "Whoa There", JOptionPane.WARNING_MESSAGE);
-}
+                + " double check input and try again", "Whoa There", JOptionPane.WARNING_MESSAGE);
+    }
+    
+    public static void inputError(){
+        JOptionPane.showMessageDialog(null, "No input detected", "Whoa There", JOptionPane.WARNING_MESSAGE);
+    }
 }
