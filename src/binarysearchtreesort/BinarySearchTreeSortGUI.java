@@ -15,8 +15,8 @@ import javax.swing.*;
  * @author luke chang CMSC 350
  */
 public class BinarySearchTreeSortGUI extends JFrame implements ActionListener {
-
     //create main JFrame to house GUI
+
     private static JFrame mainFrame;
 
     //declare panels for each part of the mainFrame;
@@ -50,7 +50,7 @@ public class BinarySearchTreeSortGUI extends JFrame implements ActionListener {
     private static JRadioButton fractionRadio;
 
     private static BinarySearchTree binaryTree;
-    
+
     //create GUI constructor
     public BinarySearchTreeSortGUI() {
         //set main frame
@@ -71,7 +71,7 @@ public class BinarySearchTreeSortGUI extends JFrame implements ActionListener {
         numTypePanel = new JPanel();
 
         //create input labels and text input fields
-        originalLabel = new JLabel("Original Input");
+        originalLabel = new JLabel("Original Input:   ");
         originalText = new JTextField(25);
         originalLabel.setFont(f);
         originalText.setFont(f);
@@ -85,12 +85,13 @@ public class BinarySearchTreeSortGUI extends JFrame implements ActionListener {
         sortButton.setFont(f);
         sortButton.repaint();
         sortButton.addActionListener((ActionEvent e) -> {
-            sortInputMethod();
+            sortInput();
         });
+
         sortButtonPanel.add(sortButton);
 
         //create result label and text field
-        resultLabel = new JLabel("Sorted List");
+        resultLabel = new JLabel("Sorted List:   ");
         resultText = new JTextField(25);
         resultText.setEditable(false);
         resultLabel.setFont(f);
@@ -160,59 +161,53 @@ public class BinarySearchTreeSortGUI extends JFrame implements ActionListener {
         BinarySearchTreeSortGUI BSTG = new BinarySearchTreeSortGUI();
     }
 
-    private static void sortInputMethod() {
-
-        // check input field, if empty prompt user and throw runtime exception
-        if (originalText.getText().equals("")) {
-            throw new RuntimeException("Please Enter a Value");
-        }
+    private static void sortInput() {
 
         //get input to place into an array
         String originalInput = originalText.getText();
+        //trim user error white space
+        originalInput.trim();
+        String[] splitList = originalInput.split("");
+         // create integer array to hold numeric values from input Array
+        Integer integerArray[] = new Integer[splitList.length];
 
-        //check if int or fraction radio button is selected
-        if (intRadio.isSelected()) {
+        // check input field, if empty prompt user and throw runtime exception
+        if (originalInput.equals("")) {
+            NumberFormatExpression.inputError();
+           resultText.setText("I can't seem to find any input");
+        }
+
+        //check if int radio button is selected
+       else if (intRadio.isSelected()) {
             try {
-
-                // create integer array to hold numberic values from input Array
-                originalInput = originalInput.trim();
-                String[] splitList = originalInput.split("");
-                Integer integerArray[] = new Integer[splitList.length];
-
                 binaryTree = new BinarySearchTree<>();
 
                 for (int i = 0; i < splitList.length; i++) {
                     integerArray[i] = Integer.parseInt(splitList[i]);
-
+                    System.out.print(integerArray[i]);
                 }
                 // create new tree object and pushes integer values
                 Tree<Integer> tree = binaryTree.inializeTree(integerArray);
-
                 // outputs results to GUI
                 outputResult(tree);
 
-            } catch (NumberFormatException e) {
-
+            } catch (NumberFormatException ne) {
                 // if value is not an integer, throws new exception
                 NumberFormatExpression.numberError();
+
             }
-        }
-
-        // check for fraction and implement fraction sort method
-        if (fractionRadio.isSelected()) {
+        } // check for fraction and implement fraction sort method
+        else if (fractionRadio.isSelected()) {
             try {
-
-                String[] splitList = originalInput.split(" ");
 
                 // create array to hold fraction variables
                 Fraction fractionArray[] = new Fraction[splitList.length];
 
                 // create new instance of the binarySearchTree class of type Fraction
-                binaryTree = new BinarySearchTree<Fraction>();
+                binaryTree = new BinarySearchTree<>();
 
                 // iterates over list in order to store fractions in array
                 for (int i = 0; i < splitList.length; i++) {
-
                     String[] fractionNumbers = splitList[i].split("/");
                     validateFraction(fractionNumbers);
                     Fraction input = new Fraction(splitList[i]);
@@ -225,7 +220,7 @@ public class BinarySearchTreeSortGUI extends JFrame implements ActionListener {
                 // outputs results to GUI
                 outputResult(tree);
 
-            } catch (NumberFormatException nfe) {
+            } catch (NumberFormatException NFE) {
 
                 // if value is not an integer, throws new exception
                 NumberFormatExpression.numberError();
@@ -237,10 +232,10 @@ public class BinarySearchTreeSortGUI extends JFrame implements ActionListener {
 
         // sorts list in ascending order
         if (ascendRadio.isSelected()) {
-            resultText.setText(binaryTree.ascTreeTraversal(data));
+            resultText.setText(binaryTree.inOrderTraversal(data));
         } // sorts list in descending order
         else if (descendRadio.isSelected()) {
-            resultText.setText(binaryTree.descTreeTraversal(data));
+            resultText.setText(binaryTree.postOrderTraversal(data));
         }
     }
 
