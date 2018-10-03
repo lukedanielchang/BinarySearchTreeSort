@@ -7,24 +7,30 @@ package binarysearchtreesort;
 
 /**
  *
- * @author ldcha CMSC 350
+ * @author Luke Chang
+ * CMSC 350
+ * @param <BST>
  */
-public class BinarySearchTree<BST> {
+public class BinarySearchTree<BST>{
     //initalize output string and tree
 
     private String output = "";
     private Tree<BST> root;
-
-    public Tree<BST> inializeTree(BST inputArray[]) {
-        //initalize root to null each time method is called
-        root = null;
-        Tree<BST> insertNode;
+    
+    public Tree<BST> initalizeTree(BST inputArray[]) {
+        //initalize root to null
+        //root = null;
+        Tree<BST> insertNode = null;
+        Tree<BST> root = null;
 
         //iterate over array to insert nodes into tree
         for (int i = 0; i < inputArray.length; i++) {
-            insertNode = new Tree<>(inputArray[i]);
-            root = insertNodeToTree(root, insertNode);
+            insertNode = (Tree<BST>) inputArray[i];
+           root = insertNodeToTree(root, insertNode);
+            System.out.println(insertNode);
         }
+          root = insertNode;
+          
         return root;
     }
 
@@ -32,25 +38,30 @@ public class BinarySearchTree<BST> {
     public Tree<BST> insertNodeToTree(Tree<BST> rootNode, Tree<BST> nextNode) {
         //check for null root
         if (rootNode == null) {
-            return nextNode;
+            root = rootNode;
+            return root;
         }
         //check if node is integer
-        if (isValidInteger(rootNode.key)) {
+      else if(isValidInteger(rootNode.key)) {
             //convert nodes to int and store in node variable
             int parentNode = (Integer) rootNode.key;
             int newNode = (Integer) nextNode.key;
 
             //compare nodes values to assign in correct spot
             if (newNode < parentNode) {
-                rootNode.leftChild = insertNodeToTree(rootNode.leftChild, nextNode);
+                rootNode.leftChild = insertNodeToTree(rootNode.leftChild,
+                        nextNode);
             } else if (newNode == parentNode) {
-                rootNode.rightChild = insertNodeToTree(rootNode.rightChild, nextNode);
+                rootNode.rightChild = insertNodeToTree(rootNode.rightChild,
+                        nextNode);
             } else if (newNode > parentNode) {
-                rootNode.rightChild = insertNodeToTree(rootNode.rightChild, nextNode);
+                rootNode.rightChild = insertNodeToTree(rootNode.rightChild,
+                        nextNode);
             }
             return rootNode;
+
         } //execute if for fractions
-        else {
+       /* else {
             //create fraction variable to store node values
             Fraction newFractionNode = (Fraction) nextNode.key;
 
@@ -59,18 +70,22 @@ public class BinarySearchTree<BST> {
 
             //compare node values to assign to correct spot
             if (compareNodes < 0) {
-                rootNode.leftChild = insertNodeToTree(rootNode.leftChild, nextNode);
+                rootNode.leftChild = insertNodeToTree(rootNode.leftChild,
+                        nextNode);
             } else if (compareNodes == 0) {
-                rootNode.rightChild = insertNodeToTree(rootNode.rightChild, nextNode);
+                rootNode.rightChild = insertNodeToTree(rootNode.rightChild,
+                        nextNode);
             } else if (compareNodes > 0) {
-                rootNode.rightChild = insertNodeToTree(rootNode.rightChild, nextNode);
+                rootNode.rightChild = insertNodeToTree(rootNode.rightChild,
+                        nextNode);
 
                 //rec call func?
             }
             return rootNode;
-        }
-    }
-
+        } 
+        */ return rootNode;
+    } 
+    
     //check valid integer input with boolean
     public boolean isValidInteger(Object node) {
         return node instanceof Integer;
@@ -91,7 +106,6 @@ public class BinarySearchTree<BST> {
         return output;
     }
     //descending tree order traversal
-
     public String postOrderTraversal(Tree<BST> node) {
         //check for remainging nodes
         if (node != null) {
